@@ -40,8 +40,8 @@ body {
 
 .navbar.scrolled {
   background-color: rgba(255, 255, 255, 0.98);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+ 
+ 
 }
 
 .navbar-container {
@@ -79,15 +79,7 @@ body {
   transition: var(--transition);
 }
 
-.logo-icon {
-  font-size: 1.4rem;
-  color: #27ae60;
-  -webkit-text-fill-color: #27ae60;
-}
 
-.logo:hover {
-  transform: scale(1.03);
-}
 
 /* Hamburger Menu */
 .hamburger {
@@ -108,7 +100,7 @@ body {
   display: block;
   height: 3px;
   width: 100%;
-  background-color: var(--primary-color);
+  background-color: #2c3e50;
   border-radius: 3px;
   transition: var(--transition);
   transform-origin: center;
@@ -155,7 +147,7 @@ body {
 }
 
 .nav-link:hover {
-  background-color: rgba(52, 152, 219, 0.1);
+  background-color: rgba(52, 152, 219, 0.539);
   color: var(--accent-color);
   transform: translateY(-2px);
 }
@@ -179,7 +171,7 @@ body {
   padding: 8px;
   margin-right: 10px;
   border-radius: 50%;
-  transition: var(--transition);
+  
   display: flex;
   align-items: center;
   justify-content: center;
