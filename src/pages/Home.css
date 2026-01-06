@@ -25,15 +25,14 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  color: rgb(3, 235, 247);
-  background-color: rgba(128, 128, 128, 0.311);
+  color:whitesmoke;
+  background-color: rgba(128, 128, 128, 0.598);
   
   font-size: clamp(32px, 6vw, 64px);
   font-weight: 700;
   text-shadow: 0 5px 15px rgba(0,0,0,0.5);
   text-align: center;
 }
-
 
 .top-products {
   max-width: 1400px;
@@ -610,6 +609,7 @@
   .footer-container {
     grid-template-columns: 1fr;
     gap: 30px;
+    text-align: center;
   }
   
   .footer-section {

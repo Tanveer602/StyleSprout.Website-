@@ -13,21 +13,21 @@ const productsData = [
   },
   {
     id: 2,
-     name: "Graphic Hoodie",
+    name: "Graphic Hoodie",
     price: 50,
     oldPrice: 55,
     rating: 5.3,
     image: "https://zellbury.com/cdn/shop/files/WWPH25001_4.jpg?v=1762864503&width=823",
-    sizes: ["XS", "S", "M", ]
+    sizes: ["XS", "S", "M"]
   },
-   {
+  {
     id: 3,
     name: "Salwar kamze",
     price: 60,
     oldPrice: 65,
     rating: 5.1,
     image: "https://www.gulahmedshop.com/cdn/shop/files/basic_waistcoat_kwc-pd24-014_8.jpg?v=1758376644",
-    sizes: ["4 Years", "6 Years", "8 Years", "10 Years" ,   ]
+    sizes: ["4 Years", "6 Years", "8 Years", "10 Years"]
   },
   {
     id: 4,
@@ -37,30 +37,30 @@ const productsData = [
     image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff",
     sizes: ["7", "8", "9", "10"]
   },
-    {
+  {
     id: 5,
-    name: "pink women's tunic",
+    name: "Pink Women's Tunic",
     price: 45,
     oldPrice: 55,
     rating: 4.8,
     image: "https://zellbury.com/cdn/shop/files/Wws251285_8.jpg?v=1760095107&width=823",
-    sizes: ["S", "M", "L", ]
+    sizes: ["S", "M", "L"]
   },
-   {
+  {
     id: 6,
     name: "Junior Girls Tees",
     price: 50,
     oldPrice: 60,
     rating: 4.5,
     image: "https://www.gulahmedshop.com/cdn/shop/files/junior-girls-tees-color-pink-regular-fit-jg-ts-ss25-009-half-front.jpg?v=1758455899",
-    sizes: ["3 to 4 Years", "5 to 6 Years", "7 to 8 Years", ]
+    sizes: ["3 to 4 Years", "5 to 6 Years", "7 to 8 Years"]
   },
 ];
 
-function Home() {
+function Home({ addToCart }) {
   const [showModal, setShowModal] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState("M");
   const [quantity, setQuantity] = useState(1);
 
   const openModal = (product) => {
@@ -76,137 +76,95 @@ function Home() {
   };
 
   const handleSizeSelect = (size) => setSelectedSize(size);
+  const handleQuantityChange = (amount) => setQuantity(prev => Math.max(1, prev + amount));
 
-  const handleQuantityChange = (amount) => {
-    setQuantity((prev) => Math.max(1, prev + amount));
+  const handleAddToCart = () => {
+    if (selectedProduct) {
+      addToCart({
+        ...selectedProduct,
+        selectedSize,
+        quantity
+      });
+      closeModal();
+    }
   };
 
   return (
     <div className="home-page">
+      {/* Hero Video */}
       <div className="hero-video">
         <video autoPlay loop muted>
           <source src="https://media.istockphoto.com/id/1316773371/video/shopping-clothing-store-interior-modern-fashionable-shop-clothes-for-every-taste-stylish.mp4?s=mp4-640x640-is&k=20&c=1XHLA4eNvH0OpngnL0tqQpNDGtQOWFxIl5adl8JipOE=" type="video/mp4" />
         </video>
-        <h1 className="hero-title">Welcome to StyleSprout
-        </h1>
-        
+        <h1 className="hero-title">Welcome to StyleSprout</h1>
       </div>
 
-    
+      {/* Top Products */}
       <div className="top-products">
         <h2>Top Products</h2>
         <div className="products-container grid-view">
-          {productsData.map((product) => (
+          {productsData.map(product => (
             <div key={product.id} className="product-item">
               <div className="product-image">
                 <img src={product.image} alt={product.name} />
-                <button
-                  className="quick-view-btn"
-                  onClick={() => openModal(product)}
-                >
-                  Quick View
-                </button>
+                <button className="quick-view-btn" onClick={() => openModal(product)}>Quick View</button>
               </div>
               <div className="product-info">
                 <div className="product-name">{product.name}</div>
-                <div className="product-rating">
-                  <span className="stars">{product.rating} ★</span>
-                </div>
+                <div className="product-rating">{product.rating} ★</div>
                 <div className="product-price">
                   <span className="current">${product.price}</span>
                   <span className="old">${product.oldPrice}</span>
                 </div>
-                <button
-                  className="add-to-cart-btn"
-                  onClick={() => openModal(product)}
-                >
-                  Add to Cart
-                </button>
+                <button className="add-to-cart-btn" onClick={() => openModal(product)}>Add to Cart</button>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      
+      {/* Modal */}
       {showModal && selectedProduct && (
         <div className="modal-overlay" onClick={closeModal}>
-          <div
-            className="quick-view-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button className="modal-close" onClick={closeModal}>
-              &times;
-            </button>
+          <div className="quick-view-modal" onClick={e => e.stopPropagation()}>
+            <button className="modal-close" onClick={closeModal}>&times;</button>
             <div className="modal-content">
-              
               <div className="product-gallery">
                 <div className="main-image">
-                  <img
-                    src={selectedProduct.image}
-                    alt={selectedProduct.name}
-                  />
+                  <img src={selectedProduct.image} alt={selectedProduct.name} />
                 </div>
               </div>
 
-           
               <div className="product-details-modal">
-                <h2 className="product-title">{selectedProduct.name}</h2>
-
+                <h2>{selectedProduct.name}</h2>
                 <div className="product-meta">
-                  <span className="rating">Rating: {selectedProduct.rating} ★</span>
-                  <span className="sku">SKU: #{selectedProduct.id}</span>
+                  <span>Rating: {selectedProduct.rating} ★</span>
+                  <span>SKU: #{selectedProduct.id}</span>
                 </div>
-
                 <div className="price-modal">
-                  <span className="current">${selectedProduct.price}</span>
+                  <span>${selectedProduct.price}</span>
                   <span className="old">${selectedProduct.oldPrice}</span>
                 </div>
 
-               
+                {/* Size Selector */}
                 <div className="size-selector">
                   <h4>Choose Size</h4>
                   <div className="size-options">
-                    {selectedProduct.sizes.map((size) => (
-                      <button
-                        key={size}
-                        className={`size-option ${
-                          selectedSize === size ? "selected" : ""
-                        }`}
-                        onClick={() => handleSizeSelect(size)}
-                      >
-                        {size}
-                      </button>
+                    {selectedProduct.sizes.map(size => (
+                      <button key={size} className={`size-option ${selectedSize === size ? "selected" : ""}`} onClick={() => handleSizeSelect(size)}>{size}</button>
                     ))}
                   </div>
-                  <a href="#" className="size-guide-link">
-                    Size Guide
-                  </a>
+                  <a href="#" className="size-guide-link">Size Guide</a>
                 </div>
 
-                
+                {/* Quantity & Add to Cart */}
                 <div className="add-to-cart-section">
                   <div className="quantity-selector-modal">
-                    <button
-                      className="qty-btn"
-                      onClick={() => handleQuantityChange(-1)}
-                    >
-                      -
-                    </button>
-                    <input
-                      type="text"
-                      readOnly
-                      value={quantity}
-                      className="qty-input"
-                    />
-                    <button
-                      className="qty-btn"
-                      onClick={() => handleQuantityChange(1)}
-                    >
-                      +
-                    </button>
+                    <button className="qty-btn" onClick={() => handleQuantityChange(-1)}>-</button>
+                    <input type="text" value={quantity} readOnly className="qty-input" />
+                    <button className="qty-btn" onClick={() => handleQuantityChange(1)}>+</button>
                   </div>
-                  <button className="add-to-cart-modal">Add to Cart</button>
+                  <button className="add-to-cart-modal" onClick={handleAddToCart}>Add to Cart</button>
                 </div>
 
                 <div className="product-meta-info">
@@ -218,44 +176,42 @@ function Home() {
         </div>
       )}
 
-      
+      {/* Shipping bar */}
       <div className="shipping-bar">
         <div className="shipping-container">
           <div className="shipping-item">
-            <span className="shipping-icon">🚚</span>
-            <div className="shipping-text">
+            <span>🚚</span>
+            <div>
               <h4>Free Shipping</h4>
               <p>On orders over $50</p>
             </div>
           </div>
-          
           <div className="shipping-item">
-            <span className="shipping-icon">🔄</span>
-            <div className="shipping-text">
+            <span>🔄</span>
+            <div>
               <h4>Easy Returns</h4>
               <p>10-Day Return Policy</p>
             </div>
           </div>
-          
           <div className="shipping-item">
-            <span className="shipping-icon">🔒</span>
-            <div className="shipping-text">
+            <span>🔒</span>
+            <div>
               <h4>Secure Payment</h4>
               <p>100% Safe & Secure</p>
             </div>
           </div>
-          
           <div className="shipping-item">
-            <span className="shipping-icon">📞</span>
-            <div className="shipping-text">
+            <span>📞</span>
+            <div>
               <h4>24/7 Support</h4>
               <p>Always Here to Help</p>
             </div>
           </div>
         </div>
       </div>
+       
 
-      
+       
       <footer className="footer">
         <div className="footer-container">
         
@@ -361,5 +317,4 @@ function Home() {
     </div>
   );
 }
-
 export default Home;

@@ -431,6 +431,9 @@ export default function Women({ addToCart }) {
                     <span className="meta-label">Tags:</span>
                     <span className="meta-value">Fashion, Women, Clothing</span>
                   </div>
+                    <div className="product-meta-info">
+                  <p>10 Days Return Policy</p>
+                </div>
                 </div>
               </div>
             </div>

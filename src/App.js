@@ -102,10 +102,11 @@ function App() {
       <Navbar user={user} setUser={setUser} cart={cart} />
 
       <Routes>
-        <Route path="/" element={<Home />} />
+       <Route path="/" element={<Home addToCart={addToCart} />} />
         <Route path="/men" element={<Men addToCart={addToCart} />} />
         <Route path="/women" element={<Women addToCart={addToCart} />} />
         <Route path="/kids" element={<Kids addToCart={addToCart} />} />
+        
         <Route 
           path="/cart" 
           element={
