@@ -1,8 +1,11 @@
-
-import React from "react";
+import React, { useState } from "react";
 import "../styles/cart.css";
 
 export default function Cart({ cart, removeFromCart, updateQuantity, clearCart }) {
+  const [showDeliveryMessage, setShowDeliveryMessage] = useState(false);
+  const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const [orderId, setOrderId] = useState("");
+
   const calculateTotal = () => {
     return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
   };
@@ -11,12 +14,43 @@ export default function Cart({ cart, removeFromCart, updateQuantity, clearCart }
     return cart.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const handleCheckout = () => {
+    
+    setShowDeliveryMessage(true);
+  };
+
+  const confirmOrder = () => {
+
+    const newOrderId = `ORD${Math.random().toString(36).substr(2, 9).toUpperCase()}`;
+    setOrderId(newOrderId);
+    
+    
+    setOrderConfirmed(true);
+    setShowDeliveryMessage(false);
+    
+    
+    clearCart();
+  };
+
+  const closeMessage = () => {
+    
+    setShowDeliveryMessage(false);
+  };
+
+  const closeConfirmation = () => {
+    setOrderConfirmed(false);
+    setOrderId("");
+  };
+
   return (
     <div className="cart-page">
       <h2>Your Shopping Cart</h2>
       
       {cart.length === 0 ? (
-        <p className="empty-cart">Your cart is empty</p>
+        <div>
+          <p className="empty-cart">Your cart is empty</p>
+
+        </div>
       ) : (
         <>
           <div className="cart-items">
@@ -29,7 +63,7 @@ export default function Cart({ cart, removeFromCart, updateQuantity, clearCart }
                   {item.selectedSize && <p>Size: <strong>{item.selectedSize}</strong></p>}
                   <p>Price: <strong>${item.price}</strong></p>
                   
-                  {/* QUANTITY CONTROLS IN CART */}
+                 
                   <div className="cart-quantity-controls">
                     <button 
                       onClick={() => updateQuantity(item.id, item.selectedSize, -1)}
@@ -71,11 +105,44 @@ export default function Cart({ cart, removeFromCart, updateQuantity, clearCart }
               <button onClick={clearCart} className="clear-cart-btn">
                 Clear Cart
               </button>
-              <button className="checkout-btn">
+              <button onClick={handleCheckout} className="checkout-btn">
                 Proceed to Checkout (${calculateTotal().toFixed(2)})
               </button>
             </div>
           </div>
+
+       
+{showDeliveryMessage && (
+  <div className="checkout-overlay">
+    <div className="checkout-modal">
+      <h3 className="checkout-title">Delivery Information</h3>
+
+      <p className="checkout-text">
+        Your order will be delivered within <strong>3 working days</strong>.
+      </p>
+
+      <p className="checkout-text">
+        Do you want to confirm your order?
+      </p>
+
+      <div className="checkout-summary">
+        <p><strong>Total Items:</strong> {getTotalItems()}</p>
+        <p><strong>Total Amount:</strong> ${calculateTotal().toFixed(2)}</p>
+      </div>
+
+      <div className="checkout-buttons">
+        <button onClick={confirmOrder} className="checkout-confirm-btn">
+          ✅ Confirm Order
+        </button>
+
+        <button onClick={closeMessage} className="checkout-cancel-btn">
+          ✗ Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
         </>
       )}
     </div>

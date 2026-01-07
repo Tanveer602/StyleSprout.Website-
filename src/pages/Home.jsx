@@ -91,7 +91,7 @@ function Home({ addToCart }) {
 
   return (
     <div className="home-page">
-      {/* Hero Video */}
+   
       <div className="hero-video">
         <video autoPlay loop muted>
           <source src="https://media.istockphoto.com/id/1316773371/video/shopping-clothing-store-interior-modern-fashionable-shop-clothes-for-every-taste-stylish.mp4?s=mp4-640x640-is&k=20&c=1XHLA4eNvH0OpngnL0tqQpNDGtQOWFxIl5adl8JipOE=" type="video/mp4" />
@@ -99,7 +99,7 @@ function Home({ addToCart }) {
         <h1 className="hero-title">Welcome to StyleSprout</h1>
       </div>
 
-      {/* Top Products */}
+   
       <div className="top-products">
         <h2>Top Products</h2>
         <div className="products-container grid-view">
@@ -146,7 +146,7 @@ function Home({ addToCart }) {
                   <span className="old">${selectedProduct.oldPrice}</span>
                 </div>
 
-                {/* Size Selector */}
+               
                 <div className="size-selector">
                   <h4>Choose Size</h4>
                   <div className="size-options">
@@ -157,7 +157,7 @@ function Home({ addToCart }) {
                   <a href="#" className="size-guide-link">Size Guide</a>
                 </div>
 
-                {/* Quantity & Add to Cart */}
+                
                 <div className="add-to-cart-section">
                   <div className="quantity-selector-modal">
                     <button className="qty-btn" onClick={() => handleQuantityChange(-1)}>-</button>
@@ -176,7 +176,7 @@ function Home({ addToCart }) {
         </div>
       )}
 
-      {/* Shipping bar */}
+      
       <div className="shipping-bar">
         <div className="shipping-container">
           <div className="shipping-item">

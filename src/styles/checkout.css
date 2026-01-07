@@ -52,7 +52,7 @@
   border-color: #000;
 }
 
-/* Place Order button */
+
 .place-order-btn {
   width: 100%;
   padding: 12px;
@@ -68,7 +68,7 @@
   background: #e68a00;
 }
 
-/* Summary */
+
 .checkout-summary {
   flex: 1;
   min-width: 250px;
@@ -97,7 +97,7 @@
   border-color: #ccc;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
   .checkout-container {
     flex-direction: column;

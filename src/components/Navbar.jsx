@@ -1,4 +1,4 @@
-// components/Navbar.js
+
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import "./Navbar.css";
@@ -13,7 +13,7 @@ export default function Navbar({ user, setUser, cart }) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Close menu and dropdown when clicking outside
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (menuRef.current && !menuRef.current.contains(event.target) && 
@@ -31,13 +31,13 @@ export default function Navbar({ user, setUser, cart }) {
     };
   }, []);
 
-  // Close menu when route changes
+ 
   useEffect(() => {
     setMenuOpen(false);
     setProfileOpen(false);
   }, [location]);
 
-  // Handle scroll effect
+ 
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 10);
@@ -69,7 +69,6 @@ export default function Navbar({ user, setUser, cart }) {
     <>
       <nav className={`navbar ${scrolled ? "scrolled" : ""}`}>
         <div className="navbar-container">
-          {/* Logo */}
           <Link to="/" className="logo-link" onClick={closeAllMenus}>
             <h1 className="logo">
               
@@ -77,7 +76,7 @@ export default function Navbar({ user, setUser, cart }) {
             </h1>
           </Link>
 
-          {/* Hamburger Menu for Mobile */}
+          
           <button 
             ref={hamburgerRef}
             className={`hamburger ${menuOpen ? "active" : ""}`}
@@ -90,7 +89,7 @@ export default function Navbar({ user, setUser, cart }) {
             <span className="hamburger-line"></span>
           </button>
 
-          {/* Navigation Links */}
+        
           <div ref={menuRef} className={`nav-center ${menuOpen ? "open" : ""}`}>
             <div className="nav-links">
               <Link to="/" className="nav-link" onClick={closeAllMenus}>
@@ -110,7 +109,7 @@ export default function Navbar({ user, setUser, cart }) {
                 <span className="link-text">Kids</span>
               </Link>
               
-              {/* Cart Link in Menu (for mobile) */}
+             
               <Link to="/cart" className="nav-link mobile-cart" onClick={closeAllMenus}>
                 <i className="fas fa-shopping-cart"></i>
                 <span className="link-text">
@@ -121,7 +120,7 @@ export default function Navbar({ user, setUser, cart }) {
                 </span>
               </Link>
               
-              {/* Sign In/Sign Up Links in Menu (for mobile) */}
+             
               {!user ? (
                 <>
                   <Link to="/signin" className="nav-link mobile-auth" onClick={closeAllMenus}>
@@ -165,9 +164,9 @@ export default function Navbar({ user, setUser, cart }) {
             </div>
           </div>
 
-          {/* Right Side - Cart and Auth/Profile */}
+         
           <div className="nav-right">
-            {/* Cart Link */}
+         
             <Link to="/cart" className="cart-icon-link" onClick={closeAllMenus}>
               <i className="fas fa-shopping-cart"></i>
               {cart.length > 0 && (
@@ -175,7 +174,7 @@ export default function Navbar({ user, setUser, cart }) {
               )}
             </Link>
             
-            {/* Auth/Profile Section */}
+       
             {user ? (
               <div ref={profileRef} className="profile-container">
                 <button 
@@ -235,7 +234,7 @@ export default function Navbar({ user, setUser, cart }) {
         </div>
       </nav>
       
-      {/* Mobile Menu Overlay */}
+
       {menuOpen && <div className="menu-overlay" onClick={closeAllMenus}></div>}
     </>
   );
