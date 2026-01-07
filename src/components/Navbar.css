@@ -1,4 +1,4 @@
-/* Navbar.css */
+/* Navbar.css - FIXED VERSION */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
 
 * {
@@ -18,15 +18,25 @@
   --transition: all 0.3s ease;
   --border-radius: 8px;
   --header-height: 70px;
+  
+  /* Color variables */
+  --navbar-bg: white;
+  --navbar-scrolled-bg: rgba(255, 255, 255, 0.98);
+  --navbar-text: #2c3e50;
+  --navbar-hover: rgba(52, 152, 219, 0.1);
+  --mobile-menu-bg: white;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
 }
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   padding-top: var(--header-height);
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .navbar {
-  background-color: white;
+  background-color: var(--navbar-bg);
   box-shadow: var(--shadow);
   position: fixed;
   top: 0;
@@ -34,14 +44,23 @@ body {
   right: 0;
   z-index: 1000;
   width: 100%;
-  transition: all 0.3s ease;
   height: var(--header-height);
+  transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
 }
 
+/* Scrolled state - FIXED: Only change background, not entire navbar */
 .navbar.scrolled {
-  background-color: rgba(255, 255, 255, 0.98);
- 
- 
+  background-color: var(--navbar-scrolled-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* When mobile menu is open - FIXED: Keep original navbar style */
+.navbar.menu-open {
+  background-color: var(--navbar-bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 .navbar-container {
@@ -65,9 +84,9 @@ body {
 }
 
 .logo {
-  font-size: 1.9rem;
+  font-size: 1.6rem;
   font-weight: 800;
-  color: var(--primary-color);
+  color: var(--navbar-text);
   letter-spacing: -0.5px;
   display: flex;
   align-items: center;
@@ -79,9 +98,17 @@ body {
   transition: var(--transition);
 }
 
+.logo-icon {
+  font-size: 1.4rem;
+  color: #27ae60;
+  -webkit-text-fill-color: #27ae60;
+}
 
+.logo:hover {
+  transform: scale(1.03);
+}
 
-/* Hamburger Menu */
+/* Hamburger Menu - FIXED: Always visible color */
 .hamburger {
   display: none;
   flex-direction: column;
@@ -100,10 +127,14 @@ body {
   display: block;
   height: 3px;
   width: 100%;
-  background-color: #2c3e50;
+  background-color: var(--navbar-text) !important; /* FIXED: Always same color */
   border-radius: 3px;
   transition: var(--transition);
   transform-origin: center;
+}
+
+.hamburger.active .hamburger-line {
+  background-color: var(--navbar-text) !important; /* FIXED: Active state color */
 }
 
 .hamburger.active .hamburger-line:nth-child(1) {
@@ -134,7 +165,7 @@ body {
 
 .nav-link {
   text-decoration: none;
-  color: var(--dark-color);
+  color: var(--navbar-text);
   font-weight: 600;
   font-size: 0.95rem;
   padding: 8px 12px;
@@ -147,7 +178,7 @@ body {
 }
 
 .nav-link:hover {
-  background-color: rgba(52, 152, 219, 0.539);
+  background-color: var(--navbar-hover);
   color: var(--accent-color);
   transform: translateY(-2px);
 }
@@ -166,12 +197,12 @@ body {
 .cart-icon-link {
   position: relative;
   text-decoration: none;
-  color: var(--dark-color);
+  color: var(--navbar-text);
   font-size: 1.3rem;
   padding: 8px;
   margin-right: 10px;
   border-radius: 50%;
-  
+  transition: var(--transition);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -294,7 +325,7 @@ body {
 
 .user-name {
   font-weight: 600;
-  color: var(--primary-color);
+  color: var(--navbar-text);
   font-size: 0.9rem;
 }
 
@@ -308,7 +339,7 @@ body {
   position: absolute;
   top: 50px;
   right: 0;
-  background-color: white;
+  background-color: var(--mobile-menu-bg);
   border-radius: var(--border-radius);
   box-shadow: var(--shadow);
   width: 280px;
@@ -423,16 +454,22 @@ body {
   background-color: rgba(231, 76, 60, 0.1);
 }
 
-/* Mobile Menu Overlay */
+/* Mobile Menu Overlay - FIXED: Proper overlay */
 .menu-overlay {
   position: fixed;
   top: var(--header-height);
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--overlay-bg);
   z-index: 998;
   display: none;
+  animation: fadeInOverlay 0.3s ease;
+}
+
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Mobile Auth Links */
@@ -499,7 +536,7 @@ body {
   }
 }
 
-/* Mobile Devices */
+/* Mobile Devices - FIXED: Mobile menu styling */
 @media (max-width: 768px) {
   :root {
     --header-height: 60px;
@@ -533,7 +570,7 @@ body {
     top: var(--header-height);
     left: 0;
     width: 100%;
-    background-color: white;
+    background-color: var(--mobile-menu-bg);
     height: calc(100vh - var(--header-height));
     transform: translateX(-100%);
     transition: transform 0.3s ease;
@@ -562,11 +599,14 @@ body {
     font-size: 1.1rem;
     border-radius: 10px;
     border-left: 4px solid transparent;
+    color: var(--navbar-text) !important; /* FIXED: Text color */
   }
   
   .nav-link:hover {
     border-left: 4px solid var(--accent-color);
     transform: translateX(5px);
+    background-color: var(--navbar-hover);
+    color: var(--accent-color) !important;
   }
   
   .link-text {
@@ -633,16 +673,18 @@ body {
   
   .signup-mobile {
     background-color: var(--primary-color);
-    color: white;
+    color: white !important;
   }
   
   .signup-mobile:hover {
     background-color: #1a252f;
+    color: white !important;
   }
   
   .cart-icon-link {
     margin-right: 0;
     font-size: 1.3rem;
+    color: var(--navbar-text) !important; /* FIXED: Cart icon color */
   }
   
   .profile-dropdown {
@@ -654,6 +696,7 @@ body {
     border-radius: 0;
     height: calc(100vh - var(--header-height));
     overflow-y: auto;
+    background-color: var(--mobile-menu-bg); /* FIXED: Background color */
   }
   
   .menu-overlay {
@@ -710,7 +753,7 @@ body {
 /* Extra Small Devices */
 @media (max-width: 400px) {
   .logo {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
   
   .logo-icon {
@@ -736,37 +779,50 @@ body {
   }
 }
 
-/* Dark Mode Support */
+/* Dark Mode Support - FIXED: Proper color handling */
 @media (prefers-color-scheme: dark) {
+  :root {
+    --navbar-bg: #1a1a2e;
+    --navbar-scrolled-bg: rgba(26, 26, 46, 0.95);
+    --navbar-text: #e6e6e6;
+    --navbar-hover: rgba(52, 152, 219, 0.2);
+    --mobile-menu-bg: #1a1a2e;
+    --overlay-bg: rgba(0, 0, 0, 0.7);
+  }
+  
   .navbar {
-    background-color: #1a1a2e;
+    background-color: var(--navbar-bg);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   }
   
+  .navbar.scrolled {
+    background-color: var(--navbar-scrolled-bg);
+  }
+  
   .nav-link {
-    color: #e6e6e6;
+    color: var(--navbar-text);
   }
   
   .nav-link:hover {
-    background-color: rgba(52, 152, 219, 0.2);
+    background-color: var(--navbar-hover);
   }
   
   .cart-icon-link {
-    color: #e6e6e6;
+    color: var(--navbar-text);
   }
   
   .signin-btn {
-    color: #e6e6e6;
-    border-color: #e6e6e6;
+    color: var(--navbar-text);
+    border-color: var(--navbar-text);
   }
   
   .profile-dropdown {
-    background-color: #1a1a2e;
-    color: #e6e6e6;
+    background-color: var(--mobile-menu-bg);
+    color: var(--navbar-text);
   }
   
   .dropdown-item {
-    color: #e6e6e6;
+    color: var(--navbar-text);
   }
   
   .dropdown-divider {
@@ -775,5 +831,10 @@ body {
   
   .mobile-user-info {
     background: linear-gradient(135deg, #2c3e50 0%, #4a6491 100%);
+  }
+  
+  /* Hamburger lines in dark mode */
+  .hamburger-line {
+    background-color: var(--navbar-text) !important;
   }
 }
