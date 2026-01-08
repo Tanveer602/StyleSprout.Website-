@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
 import Navbar from "./components/Navbar";
 import Home from "./pages/Home";
 import Men from "./pages/Men";
@@ -106,6 +105,7 @@ function App() {
         <Route path="/men" element={<Men addToCart={addToCart} />} />
         <Route path="/women" element={<Women addToCart={addToCart} />} />
         <Route path="/kids" element={<Kids addToCart={addToCart} />} />
+
         
         <Route 
           path="/cart" 

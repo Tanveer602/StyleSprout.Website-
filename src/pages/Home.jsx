@@ -224,7 +224,7 @@ function Home({ addToCart }) {
                 Shop the latest trends in men's, women's, and kids' fashion.
               </p>
             </div>
-            
+          
            
            
           </div>

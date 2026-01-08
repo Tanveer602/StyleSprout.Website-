@@ -41,7 +41,7 @@ export default function Cart({ cart, removeFromCart, updateQuantity, clearCart }
     <div className="cart-page">
       <h2>Your Shopping Cart</h2>
 
-      {/* ✅ ORDER CONFIRMATION MESSAGE */}
+     
       {orderConfirmed && (
         <div className="order-success-box">
           <div className="order-success-icon">🎉</div>
